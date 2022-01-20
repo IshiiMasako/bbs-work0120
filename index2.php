@@ -52,8 +52,8 @@ $page = min($page, $maxPage);
 $start = ($page - 1) * PAGING;
 $start = max(0, $start);
 
-/* 期末課題　１） 投稿されたデータを投稿した新しい順に表示させる */
-$sql = 'SELECT m.user, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id LIMIT :start, :list';
+/* 期末課題　２） 投稿されたデータを投稿した新しい順に表示させる */
+$sql = 'SELECT m.user, m.picture, p.* FROM members m, posts p WHERE m.id=p.member_id ORDER BY p.created DESC LIMIT :start, :list';
 $posts = $db->prepare($sql);
 $posts->bindValue(':start', $start, PDO::PARAM_INT);
 $posts->bindValue(':list', PAGING, PDO::PARAM_INT);
@@ -100,8 +100,8 @@ function makeLink($value) {
   	<div style="text-align: right"><a href="logout.php">ログアウト</a></div>
     <form action="" method="post">
       <dl>
-        <?php /* ２）掲示板の投稿画面に、会員登録時に入力したニックネームを表示させる */ ?>
-        <dt><?php echo 'ゲスト'; ?>さん、メッセージをどうぞ</dt>
+        <?php /* ３）掲示板の投稿画面に、会員登録時に入力したニックネームを表示させる */ ?>
+        <dt><?php echo $name; ?>さん、メッセージをどうぞ</dt>
         <dd>
           <textarea name="message" cols="50" rows="5"><?php echo hsc($message); ?></textarea>
           <input type="hidden" name="reply_post_id" value="<?php echo hsc($_GET['res']); ?>" />
@@ -160,8 +160,8 @@ if ($page > 1) {
 <?php
 if ($page < $maxPage) {
 ?>
-<?php /* ３） 掲示板画面のページネーションを完成させる */ ?>
-<li><a href="index2.php?page=<?php print(1); ?>">次のページへ</a></li>
+<?php /* ４） 掲示板画面のページネーションを完成させる */ ?>
+<li><a href="index2.php?page=<?php print($page + 1); ?>">次のページへ</a></li>
 <?php
 } else {
 ?>
