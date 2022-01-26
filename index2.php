@@ -101,7 +101,7 @@ function makeLink($value) {
     <form action="" method="post">
       <dl>
         <?php /* ３）掲示板の投稿画面に、会員登録時に入力したニックネームを表示させる */ ?>
-        <dt><?php echo $name; ?>さん、メッセージをどうぞ</dt>
+        <dt><?php echo $member['user']; ?>さん、メッセージをどうぞ</dt>
         <dd>
           <textarea name="message" cols="50" rows="5"><?php echo hsc($message); ?></textarea>
           <input type="hidden" name="reply_post_id" value="<?php echo hsc($_GET['res']); ?>" />
